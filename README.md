@@ -1,6 +1,11 @@
 # mlops-example
 
+
 # How to run
+## Set up
+
+`poetry install`
+
 
 ## No UI
 1. Create and save model
@@ -24,3 +29,10 @@
 2. Setup server
 
 `poetry run python ml_api/dash_server.py`  
+
+
+
+## Reference
+https://github.com/bgweber/DS_Production
+
+https://www.amazon.co.jp/Data-Science-Production-Building-Pipelines/dp/165206463X
