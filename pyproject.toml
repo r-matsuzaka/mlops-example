@@ -16,6 +16,7 @@ mypy = "^0.910"
 pytest-cov = "^3.0.0"
 pylint-fail-under = "^0.3.0"
 mlflow = "^1.21.0"
+mkdocs = "^1.2.3"
 
 [tool.poetry.dev-dependencies]
 
