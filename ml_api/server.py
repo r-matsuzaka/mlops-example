@@ -1,11 +1,13 @@
+import os
+
 import flask
 import mlflow
 import mlflow.sklearn
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
-model_path = "models/logit_games_v1"
-model = mlflow.sklearn.load_model(model_path)
+LOGIT_GAMES_V1_PATH = os.environ["LOGIT_GAMES_V1_PATH"]
+model = mlflow.sklearn.load_model(LOGIT_GAMES_V1_PATH)
 
 app = flask.Flask(__name__)
 

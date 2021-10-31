@@ -6,27 +6,48 @@ import mlflow
 import mlflow.sklearn
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
 
 MODEL_PATH = os.environ["MODEL_PATH"]
+LOGIT_GAMES_V1_PATH = os.environ["LOGIT_GAMES_V1_PATH"]
 
 df = pd.read_csv(
     "https://github.com/bgweber/Twitch/raw/master/Recommendations/games-expand.csv"
 )
-x = df.drop(["label"], axis=1)
+
+
+X = df.drop(["label"], axis=1)
 y = df["label"]
 
+print("################ X ################")
+print(X.head())
+
+print("################ y ################")
+print(y.head())
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+
 model = LogisticRegression()
-model.fit(x, y)
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+train_score = model.score(X_train, y_train)
+test_score = model.score(X_test, y_test)
+
+print(f"train score: {train_score}")
+print(f"test score: {test_score}")
+
 
 pickle.dump(model, open(MODEL_PATH, "wb"))
 
 model = pickle.load(open(MODEL_PATH, "rb"))
-# model.predict_proba(x)
 
-model_path = "ml_api/model/logit_games_v1"
-shutil.rmtree(model_path)
-mlflow.sklearn.save_model(model, model_path)
+shutil.rmtree(LOGIT_GAMES_V1_PATH)
+mlflow.sklearn.save_model(model, LOGIT_GAMES_V1_PATH)
 
-loaded = mlflow.sklearn.load_model(model_path)
-
-print(loaded.predict_proba(x))
+loaded = mlflow.sklearn.load_model(LOGIT_GAMES_V1_PATH)
