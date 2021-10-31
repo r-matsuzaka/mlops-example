@@ -3,7 +3,7 @@
 
 # How to run
 ## Set up
-`source local.env`
+`source local.env`  
 `poetry install`
 
 
