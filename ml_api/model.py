@@ -9,6 +9,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
 
+DATA_PATH = os.environ["DATA_PATH"]
 MODEL_PATH = os.environ["MODEL_PATH"]
 LOGIT_GAMES_V1_PATH = os.environ["LOGIT_GAMES_V1_PATH"]
 
@@ -24,9 +25,7 @@ def print_data(df: pd.DataFrame, df_name: str) -> None:
     print("#########################################")
 
 
-df = pd.read_csv(
-    "https://github.com/bgweber/Twitch/raw/master/Recommendations/games-expand.csv"
-)
+df = pd.read_csv(DATA_PATH)
 
 
 X = df.drop(["label"], axis=1)
@@ -60,7 +59,11 @@ pickle.dump(model, open(MODEL_PATH, "wb"))
 
 model = pickle.load(open(MODEL_PATH, "rb"))
 
-shutil.rmtree(LOGIT_GAMES_V1_PATH)
+if os.path.exists(LOGIT_GAMES_V1_PATH):
+    shutil.rmtree(LOGIT_GAMES_V1_PATH)
+    print("model already exists.")
+
 mlflow.sklearn.save_model(model, LOGIT_GAMES_V1_PATH)
+print("model for mlflow is recreated.")
 
 loaded = mlflow.sklearn.load_model(LOGIT_GAMES_V1_PATH)
