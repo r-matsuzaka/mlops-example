@@ -16,8 +16,6 @@ gcloud projects add-iam-policy-binding $your_project_id  --member "serviceAccoun
 gcloud iam service-accounts keys  create dsdemo.json --iam-account  dsdemo@$your_project_id.iam.gserviceaccount.com  
 ```
 
-Weber, Ben. Data Science in Production: Building Scalable Model Pipelines with Python (p.17). Kindle 版. 
-
 ## Set up
 `source local.env`  
 `poetry install`
