@@ -19,6 +19,7 @@ mlflow = "^1.21.0"
 mkdocs = "^1.2.3"
 gunicorn = "^20.1.0"
 dash = "^2.0.0"
+google-cloud-storage = "^1.42.3"
 
 [tool.poetry.dev-dependencies]
 

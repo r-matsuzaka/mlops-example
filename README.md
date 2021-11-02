@@ -2,6 +2,22 @@
 
 
 # How to run
+
+## Create GCP projects
+That's it.
+
+## Prepare GCP credentials
+```
+gcloud auth login  
+gcloud init  
+gcloud iam service-accounts create dsdemo  
+your_project_id={enter your project_id}  
+gcloud projects add-iam-policy-binding $your_project_id  --member "serviceAccount:dsdemo@$your_project_id.iam.gserviceaccount.com" --role "roles/owner"  
+gcloud iam service-accounts keys  create dsdemo.json --iam-account  dsdemo@$your_project_id.iam.gserviceaccount.com  
+```
+
+Weber, Ben. Data Science in Production: Building Scalable Model Pipelines with Python (p.17). Kindle 版. 
+
 ## Set up
 `source local.env`  
 `poetry install`
